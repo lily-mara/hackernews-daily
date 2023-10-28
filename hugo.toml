@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://hackernews.lilymara.xyz/'
 languageCode = 'en-us'
 title = 'Hacker News Daily top 30'
 theme = "maverick"
