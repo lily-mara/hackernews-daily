@@ -1,0 +1,15 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Hacker News Daily top 30'
+theme = "maverick"
+copyright = "Lily Mara"
+
+[[menu.main]]
+name = "RSS"
+url = "/index.xml"
+weight = 15
+
+[[menu.main]]
+name = "Archive"
+url = "/posts"
+weight = 10

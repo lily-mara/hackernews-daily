@@ -1,31 +1,35 @@
-const core = require('@actions/core');
-const getHeadlines = require('./utils/getHeadlines');
-const issue = require('./utils/issue');
+const core = require("@actions/core");
+const getHeadlines = require("./utils/getHeadlines");
+const fs = require("fs");
 const takeHeadlines = 30;
 
 // run every day at 00:01 UTC
 const run = async (date) => {
-    const contents = await getHeadlines(date, takeHeadlines);
-    if (!contents) {
-        core.warning("no content - skip issue creation")
-        return;
-    }
-    core.info(contents);
-    const res = await issue.open({
-        owner: 'meixger',
-        repo: 'hackernews-daily',
-        title: `Hacker News Daily Top ${takeHeadlines} @${new Date(date).toISOString().slice(0, 10)}`,
-        body: contents
-    });
+  const isoDate = new Date(date).toISOString().slice(0, 10);
+  const path = `content/posts/${isoDate}.md`;
+  if (fs.existsSync(path)) {
+    core.warning(`Today's file (${path}) already exists. Exiting.`);
+    return;
+  }
 
-    //   const issueNumber = res.data.number;
+  const contents = await getHeadlines(date, takeHeadlines);
+  if (!contents) {
+    core.warning("no content - skip issue creation");
+    return;
+  }
 
-    //   await issue.lock({
-    //     owner: 'headllines',
-    //     repo: 'hackernews-daily', 
-    //     issueNumber,
-    //   });
-}
+  fs.writeFileSync(
+    path,
+    `---
+title: "Hacker News top ${takeHeadlines} - ${isoDate}"
+date: ${new Date().toISOString()}
+---
 
-run(new Date())
-    .catch(err => { throw err });
+${contents}
+  `
+  );
+};
+
+run(new Date()).catch((err) => {
+  throw err;
+});
