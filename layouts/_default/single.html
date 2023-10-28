@@ -5,11 +5,8 @@
     <a class="skip-link" href="#main">Skip to main</a>
     <main id="main">
       <div class="content">
-        {{ partial "header.html" . }} {{ .Content }} {{ if gt (len ( where
-        .Site.RegularPages "Section" "posts" )) 0 }}
+        {{ partial "header.html" . }}
         <section>
-          {{ range (first 1 (where .Site.RegularPages "Section" "posts"
-          ).ByDate.Reverse) }}
           <h2 class="post">{{ .Title }}</h2>
           {{ .Content }} {{ if eq .Section "posts" }}
           <div class="post-date">
@@ -20,8 +17,10 @@
             <a href="{{ .Permalink }}">{{ $tag | urlize }}</a>
             {{- end -}} {{- end -}} {{ end }}
           </div>
-          {{ end }} {{ end }}
+          {{ end }}
         </section>
+        {{ if eq .Section "posts" }}
+        <div id="comments">{{ partial "comments.html" $ }}</div>
         {{ end }}
       </div>
     </main>
