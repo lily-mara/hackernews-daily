@@ -13,4 +13,4 @@ the [rss feed](/index.xml).
 
 Forked from https://github.com/meixger/hackernews-daily
 
-Made by [lily](https://lilymara.xyz)
+Made by [lily](https://lilymara.xyz), code lives [here](https://github.com/lily-mara/hackernews-daily)
