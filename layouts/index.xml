@@ -15,8 +15,8 @@
     <docs>http://cyber.harvard.edu/rss/rss.html</docs>
     <atom:link
       href="{{ .Site.BaseURL }}/atom.xml" rel="self" type="application/atom+xml" /> {{ $author := or
-    (.Site.Params.author) (.Site.Author.name) }} {{ range where .Site.RegularPages "Section" "posts"
-    }} <item>
+    (.Site.Params.author) (.Site.Author.name) }} {{ range where .Site.RegularPages.ByDate.Reverse
+    "Section" "posts" | first 14 }} <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
       <description>{{ .Content | html }}</description>
