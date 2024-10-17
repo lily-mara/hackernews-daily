@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+    {{ partial "head.html" . }}
+    <body>
+        <a class="skip-link" href="#main">Skip to main</a>
+        <main id="main">
+            <div class="content">
+                {{ partial "header.html" . }} {{ .Content }}
+                <p>
+                    This page includes the daily top 30 links on Hackernews
+                    since the inception of this website (October 2023). You can
+                    use your browser's "Find in page" functionality to search
+                    it.
+                </p>
+                <section>
+                    {{ range ((where .Site.RegularPages "Section"
+                    "posts").ByDate.Reverse) }}
+                    <h2 class="post">{{ .Title }}</h2>
+                    {{ .Content }} {{ if eq .Section "posts" }}
+                    <hr class="hr-list" style="padding: 0; margin: 0" />
+                    {{ end }} {{ end }}
+                </section>
+            </div>
+        </main>
+        {{ partial "footer.html" . }}
+    </body>
+</html>
